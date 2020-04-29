@@ -27,7 +27,7 @@ export class FormularioSesionComponent {
     archivosLista = []
 
     usuarioPerfilGio: GioUsuario = new GioUsuario("", "", false)
-    usuario
+    usuario:any = null
     direcciones
     formulario
     
@@ -206,21 +206,36 @@ export class FormularioSesionComponent {
     //      ARMAR UPDATES
     // =============================================================
     armarUpdates(pushId, destinatario, values) {
-        let uid = this.usuario['uid']
-        let perfilUsuarioActualizado: GioUsuario = this.componerDatosUsuario(pushId)
-        
-        let updates = {}
 
-        updates[`usuarios/${uid}/perfil`] = perfilUsuarioActualizado
-        updates[`usuarios/${uid}/${this.formulario['databaseUrlUser']}/${pushId}`] = values
+        if(this.usuario){
+            let uid = this.usuario['uid']
+            let perfilUsuarioActualizado: GioUsuario = this.componerDatosUsuario(pushId)
+            
+            let updates = {}
 
-        if(destinatario){
-            updates[`${this.formulario['databaseUrlAdmin']}/${destinatario}/${pushId}`] = values
+            updates[`usuarios/${uid}/perfil`] = perfilUsuarioActualizado
+            updates[`usuarios/${uid}/${this.formulario['databaseUrlUser']}/${pushId}`] = values
+
+            if(destinatario){
+                updates[`${this.formulario['databaseUrlAdmin']}/${destinatario}/${pushId}`] = values
+            } else {
+                updates[`${this.formulario['databaseUrlAdmin']}/${pushId}`] = values
+            }
+
+            return updates    
         } else {
-            updates[`${this.formulario['databaseUrlAdmin']}/${pushId}`] = values
-        }
+            
+            let updates = {}
 
-        return updates
+            if(destinatario){
+                updates[`${this.formulario['databaseUrlAdmin']}/${destinatario}/${pushId}`] = values
+            } else {
+                updates[`${this.formulario['databaseUrlAdmin']}/${pushId}`] = values
+            }
+
+            return updates
+        }
+        
     }
 
 

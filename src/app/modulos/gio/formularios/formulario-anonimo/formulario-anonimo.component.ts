@@ -2,18 +2,18 @@ import { Component, Inject } from '@angular/core';
 import { FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms';
 import { Router } from "@angular/router";
 // Servicios
-import { DatabaseService } from "./../../../services/firebase/database.service";
-import { PaginaActualService } from "./../../../services/comunication/pagina-actual.service";
-import { ToolbarService } from "./../../../services/comunication/toolbar.service";
+import { DatabaseService } from "../../../../services/firebase/database.service";
+import { PaginaActualService } from "../../../../services/comunication/pagina-actual.service";
+import { ToolbarService } from "../../../../services/comunication/toolbar.service";
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
-import { GeocoderService } from "./../../../services/http/geocoder.service";
+import { GeocoderService } from "../../../../services/http/geocoder.service";
 
 @Component({
-    selector: 'app-denuncia',
-    templateUrl: './denuncia.component.html',
-    styleUrls: ['./denuncia.component.scss']
+    selector: 'app-formulario-anonimo',
+    templateUrl: './formulario-anonimo.component.html',
+    styleUrls: ['./formulario-anonimo.component.scss']
 })
-export class DenunciaComponent {
+export class FormularioAnonimoComponent {
     formGroupPeticiones: FormGroup;
     ubicacion: any = {}
     archivosLista = [];
@@ -29,7 +29,7 @@ export class DenunciaComponent {
         private geoCode:GeocoderService
     ) {
         // Emisor
-        this._toolbarService.dataToolbar.emit({ ruta: 'denuncia' })
+        this._toolbarService.dataToolbar.emit({ ruta: 'formulario-anonimo' })
         this.construirFormulario()
     }
 

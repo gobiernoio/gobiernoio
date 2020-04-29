@@ -3,6 +3,14 @@
 	
 	<div class="col-12 col-md-9 p-0 m-0 pt-2 pt-md-5">
 
+
+		<div *ngIf="formulario.encabezadoImagen" class="row">
+			<div class="col-12 text-center mb-3">
+				<img src="{{ formulario.encabezadoImagen }}" alt="">
+			</div>
+		</div>
+
+
 		<div class="card mb-3 mb-md-5 shadow-sm animated fadeInUp">
 			<div class="card-header bg-primary text-light">
 				<b>{{formulario.titulo}}</b>

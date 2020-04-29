@@ -6,7 +6,7 @@ import { HttpClientModule } from "@angular/common/http";
 // import { AgmCoreModule } from '@agm/core';
 import { MatCardModule,  MatButtonModule, MatFormFieldModule, MatIconModule, MatInputModule, MatSelectModule, MatStepperModule, MatDialogModule } from '@angular/material';
 import { CommonModule } from '@angular/common';
-import { DenunciaComponent, DialogoAlerta } from './denuncia.component';
+import { FormularioAnonimoComponent, DialogoAlerta } from './formulario-anonimo.component';
 
 
 // Firebase
@@ -16,26 +16,26 @@ import { DenunciaComponent, DialogoAlerta } from './denuncia.component';
 // import { environment } from "./../../../../../src/environments/environment";
 
 // funciones
-import { funcionesFormularios } from "./../../../funciones/funciones-formularios";
+import { funcionesFormularios } from "../../../../funciones/funciones-formularios";
 
 
 // Modulos mios
-import { UbicacionModule } from "./../../herramientas/ubicacion/ubicacion.module";
-import { CargaModule } from "./../../herramientas/carga/carga.module";
+import { UbicacionModule } from "../../../herramientas/ubicacion/ubicacion.module";
+import { CargaModule } from "../../../herramientas/carga/carga.module";
 
 // Services
-import { GeocoderService } from "./../../../services/http/geocoder.service";
+import { GeocoderService } from "../../../../services/http/geocoder.service";
 
 const routes: Routes = [
   {
       path: '**',
-      component: DenunciaComponent,
+      component: FormularioAnonimoComponent,
       children: []
   }
 ];
 
 @NgModule({
-  declarations: [DenunciaComponent, DialogoAlerta],
+  declarations: [FormularioAnonimoComponent, DialogoAlerta],
   entryComponents: [DialogoAlerta], 
   imports: [
     CommonModule,
@@ -73,4 +73,4 @@ const routes: Routes = [
     HttpClientModule
   ],
 })
-export class DenunciaModule { }
+export class FormularioAnonimoModule { }

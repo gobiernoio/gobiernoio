@@ -5,23 +5,23 @@ export const portada = {
             imagen: "https://firebasestorage.googleapis.com/v0/b/ecatepecapp.appspot.com/o/webapp%2Felementos_home%2Ftramites.png?alt=media&token=bf4bd332-3903-424f-8b66-b0273bc3ead9",
         },
         {
-            enlace: "formulario-sesion/peticiones", 
+            enlace: "formulario-sesion/reporte_vecinal", 
             imagen: "https://firebasestorage.googleapis.com/v0/b/ecatepecapp.appspot.com/o/webapp%2Felementos_home%2Freporte_vecinal.png?alt=media&token=ea65e648-4541-4c81-9672-d2d9d9182f4a",
         },
         {
-            enlace: "denuncia",
+            enlace: "formulario-anonimo",
             imagen: "https://firebasestorage.googleapis.com/v0/b/ecatepecapp.appspot.com/o/webapp%2Felementos_home%2Fdenuncia_anonima.png?alt=media&token=af22193c-202a-45bc-bedb-50631566fc31",
         },
         {
-            enlace: "extraviados",
+            enlace: "formulario-sesion/celula_de_busqueda", 
             imagen: "https://firebasestorage.googleapis.com/v0/b/ecatepecapp.appspot.com/o/webapp%2Felementos_home%2Fcelula_busqueda.png?alt=media&token=e510fd90-4cce-42f3-98b6-a5177e632e26",
         },
         {
-            enlace: "peticiones-grua",
+            enlace: "formulario-sesion/servicio_de_grua", 
             imagen: "https://firebasestorage.googleapis.com/v0/b/ecatepecapp.appspot.com/o/webapp%2Felementos_home%2Fservicio_grua.png?alt=media&token=9f972036-572b-41e8-8e6f-45b1c4357c35",
         },
         {
-            enlace: "peticiones-ambiente",
+            enlace: "formulario-sesion/denuncia_ambiental", 
             imagen: "https://firebasestorage.googleapis.com/v0/b/ecatepecapp.appspot.com/o/webapp%2Felementos_home%2Fdenuncia_ambiental.png?alt=media&token=72006547-ebfd-4e5e-b9cb-537eef32f1ab",
         }
     ], 

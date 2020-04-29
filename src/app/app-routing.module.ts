@@ -18,10 +18,6 @@ const routes: Routes = [
 	{
 		path        : 'usuario-perfil',
 		loadChildren: () => import('./modulos/gio/usuarios/perfil/perfil.module').then(m => m.PerfilModule)
-		},
-	{
-		path: 'denuncia',
-		loadChildren: () => import('./modulos/gio/denuncia/denuncia.module').then(m => m.DenunciaModule)
 	},
 	// ============ Trámites ===============
 	{
@@ -61,32 +57,15 @@ const routes: Routes = [
 		path: 'chat-admin',
 		loadChildren: () => import('./modulos/gio/chat/chat-admin/chat-admin.module').then(m => m.ChatAdminModule)
 	},
-	{
-		path: 'peticiones-landing',
-		loadChildren: () => import('./modulos/gio/peticiones/peticiones-landing/peticiones-landing.module').then(m => m.PeticionesLandingModule)
-	},
-	{
-		path: 'peticiones-formulario',
-		loadChildren: () => import('./modulos/gio/peticiones/peticiones-formulario/peticiones-formulario.module').then(m => m.PeticionesFormularioModule)
-	},
-	{
-		path: 'peticiones-grua',
-		loadChildren: () => import('./modulos/gio/formularios/grua/grua.module').then(m => m.GruaModule)
-	},
-	{
-		path: 'peticiones-ambiente',
-		loadChildren: () => import('./modulos/gio/formularios/ambiente/ambiente.module').then(m => m.AmbienteModule)
-	},
 	// =========================== 	FORMULARIOS
+	{
+		path: 'formulario-anonimo',
+		loadChildren: () => import('./modulos/gio/formularios/formulario-anonimo/formulario-anonimo.module').then(m => m.FormularioAnonimoModule)
+	},
 	{
 		path: 'formulario-sesion/:formulario',
 		loadChildren: () => import('./modulos/gio/formularios/formulario-sesion/formulario-sesion.module').then(m => m.FormularioSesionModule)
 	},
-	{
-		path: 'extraviados',
-		loadChildren: () => import('./modulos/gio/formularios/extraviados/extraviados-formulario.module').then(m => m.PeticionesFormularioModule)
-	},
-
 	// {
 	//   path  : 'mapa-seleccionar',
 	//   loadChildren: 'src/app/modules/mapa-seleccionar/mapa-seleccionar.module#MapaSeleccionarModule'

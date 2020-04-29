@@ -1,10 +1,10 @@
 export const formularios = {
-    peticiones: {
-        titulo: "Peticiones", 
-        databaseUrlAdmin: "admin/peticiones", 
-        databaseUrlUser: "peticiones", 
-        showJson: true, 
-        route: 'peticiones-landing', 
+    reporte_vecinal: {
+        titulo: "Reporte vecinal", 
+        databaseUrlAdmin: "admin/reporte_vecinal", 
+        databaseUrlUser: "reporte_vecinal", 
+        showJson: false, 
+        route: 'formulario-sesion', 
         style: 
         {
             backgroundColor: '#DEDEDE', 
@@ -98,8 +98,9 @@ export const formularios = {
         titulo: "Celula de búsqueda", 
         databaseUrlAdmin: "admin/celula_de_busqueda", 
         databaseUrlUser: "celula_de_busqueda", 
-        showJson: true, 
-        route: 'celula-de-busqueda', 
+        encabezadoImagen: "https://firebasestorage.googleapis.com/v0/b/ecatepecapp.appspot.com/o/webapp%2Flogos%2Flogos_celula-09.png?alt=media&token=eae6f6f6-b7d2-43fe-894c-eca64704d64b", 
+        showJson: false, 
+        route: 'formulario-sesion', 
         style: 
         {
             backgroundColor: '#DEDEDE', 
@@ -221,5 +222,153 @@ export const formularios = {
                 matError: "El teléfono es un campo requerido"
             }, 
         ]
-    }
+    },
+    servicio_de_grua: {
+        titulo: "Servicio de grua gratuito", 
+        databaseUrlAdmin: "admin/servicio_de_grua", 
+        databaseUrlUser: "servicio_de_grua", 
+        showJson: false, 
+        route: 'formulario-sesion', 
+        style: 
+        {
+            backgroundColor: '#DEDEDE', 
+            backgroundImage: 'url(https://firebasestorage.googleapis.com/v0/b/ecatepecapp.appspot.com/o/webapp%2Ffondos%2Ffondo_generico.png?alt=media&token=5db26fee-d218-4eba-8174-ffb83d40ab71)'
+        }, 
+        campos : [
+            {
+                tipo: "input", 
+                formularioElement: true,
+                classDiv: "col-12", 
+                matLabel: "Nombre completo", 
+                formControlName: "nombre", 
+                matIcon: "account_circle", 
+                matError: "El nombre es requerido"
+            }, 
+            {
+                tipo: "input", 
+                formularioElement: true,
+                classDiv: "col-12", 
+                matLabel: "Correo electrónico", 
+                formControlName: "email", 
+                matIcon: "email", 
+                matError: "El correo es un campo requerido"
+            }, 
+            {
+                tipo: "input", 
+                formularioElement: true,
+                classDiv: "col-12", 
+                matLabel: "Teléfonos", 
+                formControlName: "telefonoLocal", 
+                matIcon: "local_phone", 
+                matError: "El teléfono es un campo requerido"
+            }, 
+            {
+                tipo: "input", 
+                formularioElement: true,
+                classDiv: "col-12", 
+                matLabel: "Dirección", 
+                formControlName: "direccion1", 
+                matIcon: "location_city", 
+                matError: "La dirección es un dato requerido"
+            }, 
+            {
+                tipo: "texto", 
+                formularioElement: false, 
+                classDiv: "col-12 p-2", 
+                texto: "<b>Mande ubicación y fotografía del vehículo averiado.</b>"
+            }, 
+            {
+                tipo: "selectArchivos", 
+                formularioElement: false,
+                classDiv: "col-12 col-md-6"
+            }, 
+            {
+                tipo: "selectUbicacion", 
+                formularioElement: false,
+                classDiv: "col-12 col-md-6"
+            }, 
+            {
+                tipo: "textarea", 
+                formularioElement: true,
+                classDiv: "col-12", 
+                matLabel: "Datos adicionales", 
+                formControlName: "mensaje", 
+                matError: "El mensaje es un campo requerido"
+            }, 
+        ]
+    }, 
+    denuncia_ambiental: {
+        titulo: "Denuncia ambiental", 
+        databaseUrlAdmin: "admin/denuncia_ambiental", 
+        databaseUrlUser: "denuncia_ambiental", 
+        showJson: false, 
+        route: 'formulario-sesion', 
+        style: 
+        {
+            backgroundColor: '#DEDEDE', 
+            backgroundImage: 'url(https://firebasestorage.googleapis.com/v0/b/ecatepecapp.appspot.com/o/webapp%2Ffondos%2Ffondo_generico.png?alt=media&token=5db26fee-d218-4eba-8174-ffb83d40ab71)'
+        }, 
+        campos : [
+            {
+                tipo: "input", 
+                formularioElement: true,
+                classDiv: "col-12", 
+                matLabel: "Nombre completo", 
+                formControlName: "nombre", 
+                matIcon: "account_circle", 
+                matError: "El nombre es requerido"
+            }, 
+            {
+                tipo: "input", 
+                formularioElement: true,
+                classDiv: "col-12", 
+                matLabel: "Correo electrónico", 
+                formControlName: "email", 
+                matIcon: "email", 
+                matError: "El correo es un campo requerido"
+            }, 
+            {
+                tipo: "input", 
+                formularioElement: true,
+                classDiv: "col-12", 
+                matLabel: "Teléfonos", 
+                formControlName: "telefonoLocal", 
+                matIcon: "local_phone", 
+                matError: "El teléfono es un campo requerido"
+            }, 
+            {
+                tipo: "input", 
+                formularioElement: true,
+                classDiv: "col-12", 
+                matLabel: "Dirección", 
+                formControlName: "direccion1", 
+                matIcon: "location_city", 
+                matError: "La dirección es un dato requerido"
+            }, 
+            {
+                tipo: "texto", 
+                formularioElement: false, 
+                classDiv: "col-12 p-2", 
+                texto: "<b>Mande ubicación y fotografía del problema.</b>"
+            }, 
+            {
+                tipo: "selectArchivos", 
+                formularioElement: false,
+                classDiv: "col-12 col-md-6"
+            }, 
+            {
+                tipo: "selectUbicacion", 
+                formularioElement: false,
+                classDiv: "col-12 col-md-6"
+            }, 
+            {
+                tipo: "textarea", 
+                formularioElement: true,
+                classDiv: "col-12", 
+                matLabel: "Datos adicionales", 
+                formControlName: "mensaje", 
+                matError: "El mensaje es un campo requerido"
+            }, 
+        ]
+    }, 
 }

@@ -53,6 +53,7 @@ export class ChatViewComponent implements OnInit, AfterViewChecked {
 	construirChat() {
 		this.parametros.queryParams.subscribe(parametros => {
 			if (parametros) {
+				console.log("Parametros del chat: ", parametros)
 				this.generarEmision(parametros)
 				this.remitente = this.generarRemitente(parametros)
 				this.destinatario = this.generarDestinatario(parametros)
