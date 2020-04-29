@@ -1,0 +1,30 @@
+@import '~@angular/material/theming';
+@include mat-core();
+
+$gio-app-primary: mat-palette($mat-red, 900);
+$gio-app-accent:  mat-palette($mat-teal, 500, A100, A400);
+$gio-app-warn:    mat-palette($mat-red, 500);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$gio-app-theme: mat-light-theme($gio-app-primary, $gio-app-accent, $gio-app-warn);
+@include angular-material-theme($gio-app-theme);
+
+// .text-material-primary {
+// 	color: mat-color($mat-red, 900);
+// }
+// .text-material-accent {
+// 	color: mat-color($mat-teal, 500);
+// }
+// .text-material-warn {
+// 	color: mat-color($mat-red, 500);
+// }
+
+// .bg-material-primary {
+// 	background-color: mat-color($mat-red, 900);
+// }
+// .bg-material-accent {
+// 	background-color: mat-color($mat-teal, 500);
+// }
+// .bg-material-warn {
+// 	background-color: mat-color($mat-red, 500);
+// }

@@ -1,0 +1,32 @@
+<div class="container-fluid caja-interior"
+	[ngStyle]="{ 'background-color': color, 'background-image': 'url(https://firebasestorage.googleapis.com/v0/b/ecatepecapp.appspot.com/o/webapp%2Ffondos%2Ffondo_generico.png?alt=media&token=5db26fee-d218-4eba-8174-ffb83d40ab71)' }">
+
+	<div class="row animated fadeIn">
+		<div class="col-12 mt-3 mt-md-5 p-3">
+
+			<!-- <div>
+				<img src="{{banner}}" height="70px" style="max-width: 100%">
+			</div> -->
+
+
+			<div class="card shadow">
+				<div class="card-body">
+					<ul class="list-group" *ngIf="tramites; else notramites">
+						<li class="list-group-item list-group-item-action list-group-item-warning"
+							*ngFor="let item of tramites" routerLink="/tramite-view/{{item.id}}/{{item.dependencia}}">
+							{{item.titulo}}
+						</li>
+					</ul>
+
+					<ng-template #notramites>
+						<div class="alert alert-warning text-center">
+							Aún <b>no existen</b> trámites en esta sección.
+						</div>
+					</ng-template>
+				<div>
+			</div>
+
+		</div>
+
+	</div>
+</div>

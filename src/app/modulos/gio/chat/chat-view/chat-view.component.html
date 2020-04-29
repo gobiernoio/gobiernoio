@@ -1,0 +1,106 @@
+<!-- <div class="h-100 animated fadeIn fondo-chat"> -->
+<div class="container-fluid d-flex flex-column" style="position: absolute; top: 0; bottom: 0; left: 0; right: 0; padding: 0px;"
+    [ngStyle]="{ 'background-color': 'rgba(' + destinatario.colorRgba + ', 0.3)', 'background-image': 'url(' + destinatario.imagenFondo + ')' }">
+    
+    <div #contenedor class="container-fluid flex-fill" style="overflow-y: scroll; padding-top: 86px;">
+
+        <div class="row" *ngFor="let item of chatHistorial | keyvalue">
+
+
+            <div class="col-12 pl-3 pr-3 pt-1 pb-1">
+                <div [className]="remitente.uid == item.value.remitente.uid ? 'mensaje mensaje-remitente' : 'mensaje mensaje-destinatario'">
+                    <div style="font-size: 14px;">{{ item.value.mensaje }}</div>
+
+                    <div *ngIf="item.value.archivo">
+                        <img src="{{ item.value.archivo.url }}" alt="" width="100%">
+                    </div>
+
+                    <div class="fecha" style="opacity: 0.5">{{ item.value.fecha | date:'medium' }}</div>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+    <div class="d-flex bg-light">
+        <div class="flex-fill p-1">
+            <textarea cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="2" cdkAutosizeMaxRows="5"
+                style="border-radius: 5px; width: 100%; height: 50px;" #mensaje></textarea>
+        </div>
+        <div class="p-1">
+            <input hidden type="file" (change)="enviarMensajeConArchivo($event)" #archivoInput />
+            <button mat-mini-fab (click)="archivoInput.click()">
+                <mat-icon matSuffix>attach_file</mat-icon>
+            </button>
+        </div>
+
+        <div class="p-1">
+            <button mat-mini-fab (click)="enviarMensaje(mensaje.value); mensaje.value = ''">
+                <mat-icon>send</mat-icon>
+            </button>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+<div class="container-fluid d-flex flex-column" style="position: absolute; top: 0; bottom: 0; left: 0; right: 0; padding: 0px;"
+    [ngStyle]="{ 'background-color': 'rgba(' + destinatario.colorRgba + ', 0.3)', 'background-image': 'url(' + destinatario.imagenFondo + ')' }">
+    
+    <div #contenedor class="container-fluid flex-fill" style="overflow-y: scroll; padding-top: 86px;">
+
+        <div class="row" *ngFor="let item of chatHistorial">
+
+
+            <div class="col-12 pl-3 pr-3 pt-1 pb-1">
+                <div [className]="remitente.uid == item.remitente.uid ? 'mensaje mensaje-remitente' : 'mensaje mensaje-destinatario'">
+                    <div style="font-size: 14px;">{{ item.mensaje }}</div>
+
+                    <div *ngIf="item.archivo">
+                        <img src="{{ item.archivo.url }}" alt="" width="100%">
+                    </div>
+
+                    <div class="fecha" style="opacity: 0.5">{{ item.fecha | date:'medium' }}</div>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+    <div class="d-flex bg-light">
+        <div class="flex-fill p-1">
+            <textarea cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="2" cdkAutosizeMaxRows="5"
+                style="border-radius: 5px; width: 100%; height: 50px;" #mensaje></textarea>
+        </div>
+        <div class="p-1">
+            <input hidden type="file" (change)="enviarMensajeConArchivo($event)" #archivoInput />
+            <button mat-mini-fab (click)="archivoInput.click()">
+                <mat-icon matSuffix>attach_file</mat-icon>
+            </button>
+        </div>
+
+        <div class="p-1">
+            <button mat-mini-fab (click)="enviarMensaje(mensaje.value); mensaje.value = ''">
+                <mat-icon>send</mat-icon>
+            </button>
+        </div>
+    </div>
+</div>
+-->

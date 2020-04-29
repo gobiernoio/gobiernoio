@@ -1,0 +1,122 @@
+<div class="container-fluid caja-interior d-flex justify-content-center p-1 p-md-5" [ngStyle]="formulario.style">
+	
+	
+	<div class="col-12 col-md-9 p-0 m-0 pt-2 pt-md-5">
+
+		<div class="card mb-3 mb-md-5 shadow-sm animated fadeInUp">
+			<div class="card-header bg-primary text-light">
+				<b>{{formulario.titulo}}</b>
+			</div>
+
+			<div class="card-body p-3 p-md-5 pb-md-3">
+				<form name="form" (ngSubmit)="procesarFormulario()">
+					<div [formGroup]="formGroup">
+						<div class="row">
+
+							<div *ngFor="let item of formulario.campos" class="{{ item.classDiv }}">
+								<!-- ============================================================
+														TIPO INPUT
+								============================================================ -->
+								<div *ngIf="item.tipo == 'input'">
+									<mat-form-field appearance="outline" class="d-block w-100">
+										<mat-label>{{item.matLabel}}</mat-label>
+										<input matInput formControlName="{{item.formControlName}}" required>
+										<mat-icon matSuffix class="text-primary">{{item.matIcon}}</mat-icon>
+										<mat-error>{{item.matError}}</mat-error>
+									</mat-form-field>
+								</div>
+
+								<!-- ============================================================
+														TIPO CODIGO POSTAL
+								============================================================ -->
+								<div *ngIf="item.tipo == 'inputCP'">
+									<mat-form-field appearance="outline" class="d-block w-100">
+										<mat-label>{{item.matLabel}}</mat-label>
+										<input matInput #postalCode value="" formControlName="{{item.formControlName}}"
+											maxlength="5" required>
+										<mat-icon matSuffix class="text-primary">{{item.matIcon}}</mat-icon>
+										<mat-hint align="start">
+											{{postalCode.value.length}} / 5
+										</mat-hint>
+										<mat-error>{{item.matError}}</mat-error>
+									</mat-form-field>
+								</div>
+
+								<!-- ============================================================
+														SELECT DEPENDENCIAS
+								============================================================ -->
+								<div *ngIf="item.tipo == 'selectDinamico'">
+									<mat-form-field appearance="outline" class="d-block w-100">
+										<mat-label>{{item.matLabel}}</mat-label>
+
+										<mat-select formControlName="{{item.formControlName}}">
+
+											<mat-option *ngFor="let item of direcciones" [value]="item.nombre">
+												{{item.nombre}}
+											</mat-option>
+
+										</mat-select>
+										<mat-icon matSuffix class="text-primary">{{item.matIcon}}</mat-icon>
+										<mat-error>{{item.matError}}</mat-error>
+									</mat-form-field>
+								</div>
+
+								<!-- ============================================================
+														SELECT ARCHIVOS
+								============================================================ -->
+								<div *ngIf="item.tipo == 'selectArchivos'">
+									<app-carga (archivos)="leerArchivos($event)"></app-carga>
+								</div>
+
+								<!-- ============================================================
+														SELECCIONAR UBICACIÓN
+								============================================================ -->
+								<div *ngIf="item.tipo == 'selectUbicacion'">
+									<app-ubicacion [lista]="'La lista'" (coords)="leerPropagacion($event)">
+									</app-ubicacion>
+								</div>
+
+								<!-- ============================================================
+														TIPO TEXTAREA
+								============================================================ -->
+								<div *ngIf="item.tipo == 'textarea'">
+									<mat-form-field appearance="outline" class="d-block w-100">
+										<mat-label>{{item.matLabel}}</mat-label>
+										<textarea rows="5" matInput formControlName="{{item.formControlName}}" required>
+										</textarea>
+										<mat-error>{{item.matError}}</mat-error>
+									</mat-form-field>
+								</div>
+							</div>
+						</div>
+
+
+						<div class="row">
+							<div class="col-8 col-md-4 offset-4 offset-md-8">
+								<!-- <button mat-raised-button color="accent" type="submit"  [disabled]="formGroup.invalid" class="d-block w-100"> -->
+								<button mat-raised-button color="accent" type="submit" class="d-block w-100">
+									<mat-icon matSuffix>send</mat-icon>
+									Envíar
+								</button>
+							</div>
+						</div>
+
+
+
+					</div>
+				</form>
+
+
+				<div class="row" *ngIf="formulario.showJson">
+					<div class="col-12 mt-5">
+						<div class="alert alert-success">
+							<pre>{{formGroup.value | json}}</pre>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+</div>

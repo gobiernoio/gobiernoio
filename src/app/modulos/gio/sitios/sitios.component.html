@@ -1,0 +1,31 @@
+<div class="container"  style="margin-top: 56px;">
+    <div class="row">
+        <div class="col-12 p-3 p-md-5">
+            <div *ngFor="let item of sitios" class="card mb-3 shadow">
+                <div class="card-header bg-primary text-light">
+                    <h2>{{item.titulo}}</h2>
+                </div>
+        
+                <div class="card-body">
+                    
+                    <div *ngIf="item.foto; else sinfoto" class="row">
+                        <div class="col-12 col-md-4">
+                            <img src="{{item.foto}}" class="w-100 img-thumbnail shadow">
+                        </div>
+                        <div class="col-12 col-md-8">
+                            <div [innerHTML]="item.texto"></div>
+                        </div>
+                    </div>
+        
+                    <ng-template #sinfoto class="row">
+                        <div class="col-12">
+                            <div [innerHTML]="item.texto"></div>
+                        </div>
+                    </ng-template>
+                    
+        
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

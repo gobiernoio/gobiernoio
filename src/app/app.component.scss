@@ -1,0 +1,28 @@
+.contenedor-total {
+    width: 100%;
+    min-height: 100vh;
+    background: #fff;
+  }
+  
+  .sidenav-content {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 0px;
+      margin: 0px;
+  }
+  
+  .barra-lateral {
+    width: 250px;
+  }
+  
+  .router-outlet {
+      display: block;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      left: 0;
+  }

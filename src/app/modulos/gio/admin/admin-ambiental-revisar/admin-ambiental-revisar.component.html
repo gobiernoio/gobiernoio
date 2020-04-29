@@ -1,0 +1,50 @@
+<div class="container-fluid" style="margin-top: 56px;">
+    <div class="container">
+        <div class="row p-0 pt-3 pb-3 p-md-5">
+
+            <div class="col-12">
+
+
+                <div *ngFor="let item of extraviadosDatos | keyvalue" class="card mb-3 shadow">
+                    <div class="card-header bg-primary text-left text-light">
+                        folio: {{item.key}}
+                    </div>
+
+                    <div class="card-body">
+                        
+                        
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <p>
+                                    <b class="text-primary">Datos del extraviado</b><br>
+                                    Nombre: {{ item.value.nombre }}<br>
+                                    Teléfonos: {{ item.value.telefonos }}<br>
+                                    e-mail: {{ item.value.email }}<br>
+                                    Dirección: {{ item.value.direccion }}<br>
+                                    Descripción: {{ item.value.descripcion }}
+                                </p>
+                            </div>
+                        </div>
+
+
+                        <div class="row mb-3">
+                            <div *ngFor="let foto of item.value.archivosArray" class="col-6 col-md-3">
+                                <img src="{{ foto.url }}" alt="" class="w-100 img-thumbnail shadow" height="100px;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        
+        </div>
+    </div>
+</div>
+
+
+
+
+<!-- 
+coordenadas: {lat: 19.54417414105902, lng: -99.03692405424803}
+-->

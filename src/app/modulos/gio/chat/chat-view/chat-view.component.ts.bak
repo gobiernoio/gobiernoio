@@ -1,0 +1,218 @@
+import { Component, OnInit, HostListener, ViewChild, ElementRef, AfterViewChecked } from '@angular/core';
+import { ActivatedRoute } from "@angular/router";
+// firebase
+import { AngularFireStorage } from "@angular/fire/storage";
+import { AuthService } from "./../../../../services/firebase/auth.service";
+import { DatabaseService } from "./../../../../services/firebase/database.service";
+// Data
+import { chats } from "./../../../../../assets/data/chats";
+// Servicio Chats Toolbar
+import { ToolbarChatService } from "./../../../../services/comunication/toolbar-chat.service";
+// Import mensaje object
+import { Mensaje } from "./mensaje";
+// Servicio de subida
+import { FirebaseUploadService } from "./../../../../services/subida/firebase-upload.service";
+import { Subida } from "./../../../../services/subida/subida";
+
+@Component({
+	selector: 'app-chat-view',
+	templateUrl: './chat-view.component.html',
+	styleUrls: ['./chat-view.component.sass']
+})
+export class ChatViewComponent implements OnInit, AfterViewChecked {
+	@ViewChild('contenedor', { static: true }) private feedContainer:ElementRef
+
+	remitente: any = {}
+	destinatario: any = {}
+	usuario: firebase.User
+	chatHistorial: any
+	alturaChat = 100
+	rutas:any
+
+
+	// Archivos
+	subidaEnCurso:Subida
+    mostrarProgreso:boolean = false
+    porcentajeProgreso:number = 0
+
+	constructor(
+		public archivos: AngularFireStorage,
+		public datos: DatabaseService,
+		public autorizacion: AuthService,
+		private parametros: ActivatedRoute,
+		private subir:FirebaseUploadService, 
+		private _toolbarChatService: ToolbarChatService
+	) {
+		// monitorea los cambios de redimensión de ventana
+		this.onResize()
+
+		// Obtiene el ID de los parametros de la URL y asigna el destinatario a la variable
+		let destinatarioId = this.parametros.snapshot.paramMap.get('id')
+		let params = this.parametros.snapshot.params
+
+		
+		// Si exist usuuario cargamos sus chats de lo contrario creamos una sesión anónima
+		this.autorizacion.gioUsuario.subscribe(data => {
+			if (data) {
+				this.remitente = this.generarRemitente(params, data)
+				this.destinatario = this.generarDestinatario(params, data)				
+				this.cargarMensajes(this.remitente, this.destinatario)
+				
+			} else {
+				this.autorizacion.crearUsuarioAnonimo()
+			}
+		})
+	}
+
+	ngOnInit() {
+	}
+
+	// Cargamos los mensajes recientes
+	cargarMensajes(remitente, destinatario) {
+		let ruta = this.parametros.snapshot.paramMap.get('ruta')
+		let rutaChatRemitente
+		
+		if(ruta == "false") {
+			rutaChatRemitente = 'usuarios/' + remitente.uid + '/chat/mensajes/' + destinatario.uid
+		} else {
+			rutaChatRemitente = 'dependencias/' + ruta + '/chat/mensajes/' + this.destinatario.uid
+		}
+
+		let referenciaChat = this.datos.datos.database.ref(rutaChatRemitente)
+		let listaChat = this.datos.datos.list(referenciaChat)
+
+		listaChat.valueChanges().subscribe(values => {
+			if (!values.length) this.crearBienvenida()
+			this.chatHistorial = values
+			console.log("Mensajes cargados ... ",  values)
+		})
+
+		referenciaChat.once("child_added", function(snapshot){
+			console.log("Data", snapshot)
+		})
+	}
+
+
+	generarRemitente(params, dataSesion) {
+		let remitente:any = {}
+		// Caso 1: Usuario anónimo 
+		if(dataSesion.isAnonymous) {
+			remitente.uid = dataSesion.uid
+			remitente.isAnonymous = dataSesion.isAnonymous
+			remitente.nombre = dataSesion.uid
+			return remitente
+		}
+		// Caso 2: el remitente registrado no admin
+		if(dataSesion.displayName && params.ruta == "false") {
+			remitente.uid = dataSesion.uid
+			remitente.nombre = dataSesion.displayName ? dataSesion.displayName : dataSesion.uid
+			remitente.isAnonymous = dataSesion.isAnonymous
+			return remitente
+		}
+		// Caso 3: Usuario registrado y es admin
+		if( dataSesion.displayName && params.ruta != "false"){
+			console.log("Que es esto", chats.chatsUids[params.ruta])
+			return chats.chatsUids[params.ruta]
+		}
+	}
+
+	generarDestinatario(params, dataSesion){
+		let destinatario:any = {}
+		// Caso 1: es usuario normal
+		if(params.ruta == "false") {
+			destinatario = chats.chatsUids[params.id]
+			console.log("El destinatario hasta aqí es: ", destinatario)
+			this._toolbarChatService.datosChat.emit(destinatario)
+			return destinatario
+		}
+		// Caso 2: Usuario registrado y es admin
+		else {
+			destinatario.uid = params.id
+			destinatario.nombre = params.nombre
+			this._toolbarChatService.datosChat.emit(destinatario)
+			return destinatario
+		}
+	}
+
+	crearBienvenida() {
+	}
+
+
+	enviarMensaje(mensajeVar, archivo?) {
+		let idValue = this.datos.datos.createPushId()
+
+		let datosArchivo 
+
+		if(archivo){
+			datosArchivo = {
+				url: archivo.url, 
+				size: archivo.file.size, 
+				type: archivo.file.type, 
+				name: archivo.file.name
+			}
+		} else {
+			datosArchivo = {}
+		}
+
+		let mensaje = new Mensaje(idValue, this.remitente, this.destinatario, mensajeVar, datosArchivo)
+		
+
+		let updates = {}
+
+		// if( this.parametros.snapshot.paramMap.get('ruta') == "false" ) {
+			updates['usuarios/' + this.remitente.uid + '/chat/mensajes/' + this.destinatario.uid + "/" + idValue] = mensaje
+			updates['usuarios/' + this.remitente.uid + '/chat/mis-mensajes/' + idValue] = mensaje
+			updates['dependencias/' + this.destinatario.uid + '/chat/mensajes/' + this.remitente.uid + "/" + idValue] = mensaje
+			updates['dependencias/' + this.destinatario.uid + '/chat/misMensajes/' + idValue] = mensaje
+		// } else {
+		// 	updates['dependencias/' + this.remitente.uid + '/chat/mensajes/' + this.destinatario.uid + "/" + idValue] = mensaje
+		// 	updates['dependencias/' + this.remitente.uid + '/chat/mis-mensajes/' + idValue] = mensaje
+		// 	updates['usuarios/' + this.destinatario.uid + '/chat/mensajes/' + this.remitente.uid + "/" + idValue] = mensaje
+		// 	updates['usuarios/' + this.destinatario.uid + '/chat/misMensajes/' + idValue] = mensaje
+		// }
+
+		console.log("Updates", updates)
+
+		this.datos.datos.database.ref().update(updates).then(() => {
+			console.log("Mensaje envíado")
+		})
+	}
+
+
+	
+
+
+	enviarMensajeConArchivo(event){
+		let file = event.target.files[0]
+        this.subidaEnCurso = new Subida(file)
+        this.subir.adjuntarArchivo(this.subidaEnCurso, 'usuarios/')
+
+        // Subscribimos para que al finalizar agregamos el archivo al array
+        this.subidaEnCurso.finalizado.subscribe(event=>{
+            if(event){
+				// this.agregarArchivoAlArray(this.subidaEnCurso)
+				console.log(this.subidaEnCurso)
+				this.enviarMensaje("Mensaje con archivo", this.subidaEnCurso)
+            }
+        })
+	}
+
+	// Redimensiona la altura de la ventana automáticamente
+	@HostListener('window:resize', ['$event'])
+	onResize(event?) {
+		let screenHeight = window.innerHeight;
+		let screenWidth = window.innerWidth;
+		this.alturaChat = screenHeight - 110
+	}
+
+
+	scrollToBottom(): void{
+		this.feedContainer.nativeElement.scrollTop = this.feedContainer.nativeElement.scrollHeight;
+		// console.log("scrollTop", this.feedContainer.nativeElement.scrollTop)
+		// console.log("scrollHeight", this.feedContainer.nativeElement.scrollHeight)
+	}
+
+	ngAfterViewChecked(){
+		this.scrollToBottom()
+	}
+}

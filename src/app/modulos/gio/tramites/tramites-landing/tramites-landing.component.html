@@ -1,0 +1,11 @@
+<div class="container-fluid caja-interior" [ngStyle]="{ 'background-color': '#DEDEDE', 'background-image': 'url(https://firebasestorage.googleapis.com/v0/b/ecatepecapp.appspot.com/o/webapp%2Ffondos%2Ffondo_generico.png?alt=media&token=5db26fee-d218-4eba-8174-ffb83d40ab71)' }">
+	
+	<div class="row p-0 p-md-3">
+		<div *ngFor="let item of direcciones" class="col-6 col-md-3 col-lg-2 p-2 p-md-3">
+			<a routerLink="/tramites-lista/{{item.id}}" style="cursor: pointer">
+				<img src="{{ item.icono }}" class="animated zoomIn over" style="width:100%">
+			</a>
+		</div>
+	</div>
+
+</div>

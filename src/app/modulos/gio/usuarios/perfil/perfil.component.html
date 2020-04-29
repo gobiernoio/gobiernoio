@@ -1,0 +1,66 @@
+<div class="container-fluid d-flex justify-content-center caja-interior"
+	[ngStyle]="{ 'background-color': color, 'background-image': 'url(./assets/images/patron.png)' }">
+	
+        <div class="align-self-md-center pt-3">
+    
+    
+            <div class="card shadow animated fadeInUp">
+                
+                <div class="card-body">
+                        
+                    <form name="form" (ngSubmit)="procesarFormulario()">
+                        
+                        <div [formGroup]="formulario">
+                            
+                            <mat-form-field appearance="outline" class="d-block">
+                                <mat-label>Nombre</mat-label>
+                                <input matInput name="displayName" formControlName="displayName">
+                                <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+                                <mat-error>
+                                    El nombre es nesesario
+                                </mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline" class="d-block">
+                                <mat-label>E-mail</mat-label>
+                                <input matInput formControlName="email">
+                                <mat-icon matSuffix class="secondary-text">mail</mat-icon>
+                                <mat-error *ngIf="formulario.get('email').hasError('required')">
+                                    Email es nesesario
+                                </mat-error>
+                                <mat-error *ngIf="formulario.get('email').hasError('email')">
+                                    Ingrese un correo valido
+                                </mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline" class="d-block">
+                                <mat-label>Telefono</mat-label>
+                                <input matInput name="phoneNumber" formControlName="phoneNumber">
+                                <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+                                <mat-error>
+                                    El teléfono es nesesario
+                                </mat-error>
+                            </mat-form-field>
+
+                            <div class="alert alert-secondary text-secondary mt-3 text-center">
+                                Identificador de usuario: {{ formulario.value.uid }}
+                            </div>
+
+                            <p class="d-block text-center pt-2 pb-2">
+                                <button color="accent" mat-raised-button color="accent" class="d-block w-100" [disabled]="formulario.invalid">
+                                    Actualizar cuenta
+                                </button>
+                            </p>
+                        </div>
+                    </form>
+
+
+                    {{ formulario.value | json }}
+
+                       
+                    
+                </div>
+            </div>
+
+        </div>
+</div>

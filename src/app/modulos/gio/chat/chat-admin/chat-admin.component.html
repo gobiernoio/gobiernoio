@@ -1,0 +1,113 @@
+<div class="container-fluid">
+	<div class="row p-0 pt-3 p-md-5">
+		<div class="col-12 col-md-5 mb-3">
+				<div class="card p-3 p-md-5 shadow">
+						<!-- REACTIVE FORM EXAMPLE -->
+						<form name="form" [formGroup]="formGroupDirecciones">
+
+
+								<div class="row" *ngFor="let item of formulario">
+									<div class="col-12">
+										<mat-form-field appearance="outline" class="d-block w-100">
+											<mat-label>{{item.nombre}}</mat-label>
+											<input matInput formControlName="{{ item.formControlName }}" required>
+											<mat-icon matSuffix class="secondary-text">{{item.icon}}</mat-icon>
+											<mat-error>El campo {{item.nombre}} es requerido</mat-error>
+										</mat-form-field>
+									</div>
+								</div>
+
+
+
+
+								<div class="row">
+									<div class="col-12">
+										<mat-form-field appearance="outline" class="d-block w-100">
+											<mat-label>Id</mat-label>
+											<input matInput formControlName="chatId" required>
+											<mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+											<mat-error>El campo Id es requerido</mat-error>
+										</mat-form-field>
+									</div>
+								</div>
+
+								<div class="row">
+									<div class="col-12">
+										<mat-form-field appearance="outline" class="d-block w-100">
+											<mat-label>Nombre de la Dirección</mat-label>
+											<input matInput formControlName="nombre" required>
+											<mat-icon matSuffix class="secondary-text">account_balance</mat-icon>
+											<mat-error>El nombre es requerido</mat-error>
+										</mat-form-field>
+									</div>
+								</div>
+
+								<div class="row">
+									<div class="col-12">
+										<mat-form-field appearance="outline" class="d-block w-100">
+											<mat-label>Descripción</mat-label>
+											<input matInput formControlName="descripcion" required>
+											<mat-icon matSuffix class="secondary-text">info</mat-icon>
+											<mat-error>Dirección es un dato requerido</mat-error>
+										</mat-form-field>
+									</div>
+								</div>
+
+
+								<div class="row">
+									<div class="col-12">
+										<button mat-raised-button *ngIf="editando" color="accent" [disabled]="formGroupDirecciones.invalid"  (click)="enviarEdicion()" class="d-block w-100">
+											<mat-icon matSuffix>send</mat-icon>
+											Editar
+										</button>
+
+										<button mat-raised-button *ngIf="!editando" color="accent" [disabled]="formGroupDirecciones.invalid"  (click)="enviarFormulario()" class="d-block w-100">
+											<mat-icon matSuffix>send</mat-icon>
+											Envíar
+										</button>
+									</div>
+								</div>
+							</form>
+				</div>
+		</div>
+
+		<div class="col-12 col-md-7">
+			<div class="card p-1 p-md-3 shadow">
+
+					<mat-accordion class="example-headers-align" multi>
+						<mat-expansion-panel *ngFor="let item of datosDirecciones">
+							<mat-expansion-panel-header>
+								<mat-panel-title>
+									<mat-icon>insert_drive_file</mat-icon> {{item.id}}
+								</mat-panel-title>
+
+								<mat-panel-description>
+								</mat-panel-description>
+							</mat-expansion-panel-header>
+
+							<div class="row">
+								<div class="col-12 col-md-6">
+									<p>
+										<!-- folio: {{ item.folio }}<br> -->
+										Dirección Id: {{item.direccionId}}<br>
+										Dirección: {{item.nombre}}
+									</p>
+
+									<p>
+											<button type="button" class="btn btn-success" (click)="editarRegistro(item.id)">
+													<mat-icon>edit</mat-icon>
+											</button>
+
+											<button type="button" class="btn btn-danger" (click)="borrarRegistro(item.id)">
+													<mat-icon>delete</mat-icon>
+											</button>
+									</p>
+								</div>
+							</div>
+
+						</mat-expansion-panel>
+					</mat-accordion>
+			</div>
+		</div>
+	</div>
+</div>

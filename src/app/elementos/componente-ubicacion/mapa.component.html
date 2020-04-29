@@ -1,0 +1,21 @@
+<div class="container-fluid m-0 p-0 d-flex flex-column h-100">
+    <div class="flex-fill">
+        <agm-map [latitude]="latMapa" [longitude]="lngMapa" [zoom]="12" (mapClick)="elegirUbicacion($event)">
+            <agm-marker *ngIf="lat" [latitude]="lat" [longitude]="lng"></agm-marker>
+        </agm-map>
+    </div>
+
+    <div class="d-block d-flex">
+        <div class="flex-fill p-1">
+            <button class="w-100" mat-raised-button color="accent" (click)="encontrarMiUbicacion()">Encuentrame</button>
+        </div>
+        
+        <div class="flex-fill p-1">
+            <button class="w-100" mat-raised-button color="accent" mat-dialog-close="false">Cancelar</button>
+        </div>
+            
+        <div class="flex-fill p-1">
+            <button class="w-100" [disabled]="!lat" mat-raised-button color="accent" [mat-dialog-close]="coordenadas" cdkFocusInitial>Aceptar</button>
+        </div>
+    </div>
+</div>

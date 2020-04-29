@@ -1,0 +1,23 @@
+<mat-sidenav-container [hasBackdrop]="true" class="contenedor-total">
+
+
+  <!-- *****************      BARRA LATERAL     ************************  -->
+  <mat-sidenav #sidenav opened="false" mode="over" (click)="sidenav.toggle()" class="bg-light text-light barra-lateral">
+      <app-sidenav></app-sidenav>
+  </mat-sidenav>
+
+
+  <!-- *****************      CONTENEDOR TOTAL   ***********************  -->
+<mat-sidenav-content class="container-fluid d-flex flex-column p-0 sidenav-content">
+    
+      <!-- *******    TOOLBAR    ******* -->
+  <app-toolbar></app-toolbar>
+
+      <!-- *******    ROUTER - AQUÍ SE CARGAN LOS CONTENIDOS    ******* -->
+      <router-outlet class="router-outlet">
+  </router-outlet>
+
+  </mat-sidenav-content>
+
+
+</mat-sidenav-container>

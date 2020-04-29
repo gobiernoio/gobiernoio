@@ -1,0 +1,125 @@
+<div class="container-fluid p-0 portada" style="margin-top: 56px;">
+	<img src="https://firebasestorage.googleapis.com/v0/b/ecatepecapp.appspot.com/o/webapp%2Frecursos%2Fimagen_portada.png?alt=media&token=0652d952-90d6-4170-8498-25c4391e9e33">
+</div>
+
+
+<div class="container" style="margin-top: -30px;">
+	<div class="row p-3">
+		<div class="col-4 p-1 p-md-4" *ngFor="let item of botones">
+			
+				<a routerLink="{{item.enlace}}">
+					<img src="{{item.imagen}}" class="imagen-responsiva sombra animated zoomIn">
+				</a>
+
+		</div>
+	</div>
+</div>
+
+
+<div class="container">
+	<div class="row">
+		<div class="col-12">
+			<h3 class="text-center text-primary negrita mt-3 mb-1 necesitas">¿Necesitas información?</h3>
+			<p class="text-center text-primary">Recibe atención en línea</p>
+		</div>
+	</div>
+</div>
+
+
+<!-- =======================		CHATS          	  ========================= -->
+<div class="container">
+	<div class="row p-3">
+		<!-- <div class="{{item.value.clase}}" *ngFor="let item of chats | keyvalue:originalOrder"> -->
+		<div class="{{item.value.clase}}" *ngFor="let item of chats | keyvalue">
+			
+			<div *ngIf="item.value.categorias.includes('portada')">
+				
+				<span *ngIf="item.value.url">
+					<a (click)="cargarChat(item.value)">
+						<img src="{{item.value.imagen}}" class="{{item.value.claseImagen}}">
+					</a>
+				</span>
+				<span *ngIf="!item.value.url">
+					<img src="{{item.value.imagen}}" class="{{item.value.claseImagen}}">
+				</span>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+
+<div class="container">
+	<div class="row">
+		<div class="col-12">
+			<a routerLink="/sitios">
+				<img src="https://firebasestorage.googleapis.com/v0/b/ecatepecapp.appspot.com/o/webapp%2Fmapa%2Fmapa.jpeg?alt=media&token=63585585-b2b4-4a17-806f-c451d0d874f9" class="mis-imagenes mt-3 mb-3 border">
+			</a>
+		</div>
+	</div>
+</div>
+
+
+<div class="container">
+	<div class="row">
+		<div class="col-12 col-md-6">
+			<img src="https://firebasestorage.googleapis.com/v0/b/ecatepecapp.appspot.com/o/webapp%2Felementos_home%2Fbanner_constitucion.png?alt=media&token=37c053be-2386-41a7-b3bf-31f76804210f" alt="" class="mis-imagenes mb-3 border">
+		</div>
+
+		<div class="col-12 col-md-6">
+			<img src="https://firebasestorage.googleapis.com/v0/b/ecatepecapp.appspot.com/o/webapp%2Felementos_home%2Fbanner_predio.png?alt=media&token=375caf58-78eb-47ff-afa5-359f9db20ee1" alt="" class="mis-imagenes mb-3 border">
+			<img src="https://firebasestorage.googleapis.com/v0/b/ecatepecapp.appspot.com/o/webapp%2Felementos_home%2Fbanner_sapase.png?alt=media&token=d817b6d4-1490-4fa4-8188-02c4422fcf7d" alt="" class="mis-imagenes mb-3 border">
+			<img src="https://firebasestorage.googleapis.com/v0/b/ecatepecapp.appspot.com/o/webapp%2Felementos_home%2Fbanner_dif.png?alt=media&token=df1cc00e-b9ec-488a-9cc4-638a0c3c6da1" alt="" class="mis-imagenes mb-3 border">
+		</div>
+	</div>
+</div>
+
+
+
+<footer class="container-fluid bg-light p-3 mt-5" style="border-top: #CCC 2px solid;">
+	<div class="row">
+		<div class="col">
+			<img src="https://firebasestorage.googleapis.com/v0/b/ecatepecapp.appspot.com/o/webapp%2Felementos_home%2Flogo_ipomex.png?alt=media&token=6336046e-9a80-46ec-98b1-107662bbe0d8" alt="" class="mis-imagenes">
+		</div>
+
+		<div class="col">
+			<p>
+				<b>Conócenos</b>
+			</p>
+			<ul>
+				<li>Sobre nosotros</li>
+				<li>Aviso de privacidad</li>
+				<li>Leyes y reglamentos</li>
+			</ul>
+		</div>
+
+		<div class="col">
+			<img src="https://firebasestorage.googleapis.com/v0/b/ecatepecapp.appspot.com/o/webapp%2Felementos_home%2Flogo_infoem.png?alt=media&token=9435d2e0-34aa-4985-8392-56114eedeb24" alt="" class="mis-imagenes">
+		</div>
+	</div>
+</footer>
+
+
+<!-- =======================		LADO IZQUIERDO		========================= -->
+	<!-- <div class="row">
+		<div class="col-12 p-1 p-md-3 animated zoomIn">
+			<a routerLink="tramites-landing">
+				<img src="assets/images/portada/tramites_en_linea.jpg" class="mis-imagenes shadow">
+			</a>
+		</div>
+		<div class="col-12 p-1 p-md-3 animated zoomIn">
+			<a routerLink="peticiones-landing">
+				<img src="assets/images/portada/reporte_vecinal.jpg" class="mis-imagenes shadow">
+			</a>
+		</div>
+	</div> -->
+
+
+	<!-- =======================		ENLACES          	  ========================= -->
+	<!-- <div class="row">
+		<div *ngFor="let item of enlaces" class="{{item.claseCaja}} animated zoomIn">
+			<a href="{{item.enlace}}" target="_blank">
+				<img src="{{item.imagen}}" class="mis-imagenes shadow">
+			</a>
+		</div>
+	</div> -->

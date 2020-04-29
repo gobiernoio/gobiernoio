@@ -1,0 +1,31 @@
+<mat-nav-list class="p-0">
+	<!-- Menú que se genera en base al array menuPrincipal -->
+	<mat-list-item class="bg-primary text-light">
+		Menú
+	</mat-list-item>
+	<span *ngFor="let item of menuPrincipal">
+		<mat-list-item routerLink="{{item.enlace}}">
+			<mat-icon class="pl-0 text-primary">{{item.icon}}</mat-icon>
+			<span class="text-primary ml-2 pr-1">{{item.texto}}</span>
+		</mat-list-item>
+		<mat-divider></mat-divider>
+	</span>
+
+
+	<div *ngIf="administrador">
+		<mat-list-item class="bg-primary text-light">
+			Menú Administrador
+		</mat-list-item>
+		<!-- Menú que se genera en base al array menuAdministrador -->
+		<span *ngFor="let item of menuAdministrador | keyvalue">
+			<mat-list-item routerLink="{{item.value.enlace}}" style="border-top: #DDD 1px solid;">
+				<mat-icon class="pl-0 text-primary">{{item.value.icon}}</mat-icon>
+				<span class="text-primary ml-2 pr-1">{{item.value.texto}}</span>
+			</mat-list-item>
+			<mat-divider></mat-divider>
+		</span>
+	</div>
+</mat-nav-list>
+
+
+

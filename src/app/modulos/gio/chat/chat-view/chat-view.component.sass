@@ -1,0 +1,53 @@
+.mensaje 
+	padding: 5px
+	max-width: 80%
+	display: block
+	position: relative
+	border-radius: .4em
+	-webkit-box-shadow: 2px 2px 7px 0px rgba(0,0,0,0.7)
+	-moz-box-shadow: 2px 2px 7px 0px rgba(0,0,0,0.7)
+	box-shadow: 2px 2px 7px 0px rgba(0,0,0,0.7)
+
+.mensaje-remitente
+	background: #333333
+	float: right
+	color: #fff
+	text-align: right
+
+.mensaje-destinatario
+	background: #000099
+	float: left
+	background: #ffffff
+	color: #000
+	text-align: left
+
+.mensaje-remitente:after
+	content: ''
+	position: absolute
+	right: 0
+	top: 50%
+	width: 0
+	height: 0
+	border: 9px solid transparent
+	border-left-color: #333333
+	border-right: 0
+	border-bottom: 0
+	margin-top: -5.5px
+	margin-right: -9px
+
+.mensaje-destinatario:after
+	content: ''
+	position: absolute
+	left: 0
+	top: 50%
+	width: 0
+	height: 0
+	border: 9px solid transparent
+	border-right-color: #ffffff
+	border-left: 0
+	border-bottom: 0
+	margin-top: -5.5px
+	margin-left: -9px
+
+.fecha
+	font-size: 9px

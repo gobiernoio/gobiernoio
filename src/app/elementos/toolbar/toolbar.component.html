@@ -1,0 +1,113 @@
+<mat-toolbar class="d-block header-toolbar bg-primary" [class.mat-elevation-z6]="true">
+    <mat-toolbar-row class="pl-2 pr-2 d-flex">
+
+        <!-- *****************************************************************  -->
+        <!-- *****************      BOTÓN IZQUIERDO      ***********  -->
+        <div *ngIf="ruta == ''; else volver">
+            <button mat-icon-button (click)="_sidenavServiceService.open()">
+                <mat-icon class="text-light">menu</mat-icon>
+            </button>
+        </div>
+
+        <ng-template #volver>
+            <button mat-icon-button (click)="_location.back()">
+                <mat-icon class="text-light">arrow_back</mat-icon>
+            </button>
+        </ng-template>
+
+        <!-- *****************************************************************  -->
+        <!-- *****************      ENCABEZADO     ************  -->
+        <!-- *******    ******************************************************  -->
+        <div *ngIf="ruta == 'chat'; else nochatview" class="text-center flex-grow-1">
+            <div class="text-center flex-grow-1">
+                <b class="text-light" style="font-size: 14px;">{{ (dataToolbar?.destinatario.nombre.length>26)? (dataToolbar?.destinatario.nombre | slice:0:26)+'..':(dataToolbar?.destinatario.nombre) }}</b>
+            </div>
+        </div>
+        <ng-template #nochatview>
+            <img src="https://firebasestorage.googleapis.com/v0/b/ecatepecapp.appspot.com/o/webapp%2Flogos%2FLogo_nav_bar.png?alt=media&token=fe121006-e842-4362-8e89-4c4bfc7fd06d" alt="" style="height: 32px; margin: 0px auto;">
+        </ng-template>
+        
+        <!-- *****************************************************************  -->
+        <!-- *****************      MENU DERECHO      ************************  -->
+        <!-- *******    **********************************************************  -->
+        <div *ngIf="ruta == 'chat'; else menuUsuario">
+            
+            <button mat-button [matMenuTriggerFor]="userMenu" class="text-light">
+                <mat-icon class="s-16">folder_shared</mat-icon>
+            </button>
+
+                <mat-menu #userMenu="matMenu" [overlapTrigger]="false" xPosition="before">
+                    <!--
+                    <button mat-menu-item>
+                    <mat-icon>account_circle</mat-icon>
+                    <span>My Profile</span>
+                    </button>
+
+                -->
+                    <button mat-menu-item (click)="llamarEliminarChat(dataToolbar)">
+                        <mat-icon>delete</mat-icon>
+                        <span>Eliminar este chat</span>
+                    </button>
+
+                    <!-- <button mat-menu-item (click)="autorizacion.cerrarSesion()">
+                        <mat-icon>exit_to_app</mat-icon>
+                        <span>Cerrar sesión</span>
+                    </button> -->
+                </mat-menu>
+        </div>
+
+
+
+        <ng-template #menuUsuario>
+            <!-- <span *ngIf="gioDos; else login">{{gioDos.displayName | json}}</span> -->
+            <!-- <button *ngIf="autorizacion.gioUsuario | async as usuario; else login" mat-button -->
+            <button *ngIf="autorizacion.gioUsuario as algo; else login" mat-button
+                [matMenuTriggerFor]="userMenu" class="text-light">
+
+                <mat-icon *ngIf="!algo.photoURL">account_circle</mat-icon>
+
+                <img *ngIf="algo.photoURL" class="avatar mr-0 mr-sm-16 mr-1 rounded-circle"
+                    src="{{ algo.photoURL }}" style="height: 28px;">
+
+                <span *ngIf="algo.isAnonymous; else usuarioRegistrado">
+                    <span class="d-none d-md-inline-block ml-1">Anónimo</span>
+                </span>
+
+                <ng-template #usuarioRegistrado>
+                    <span class="d-none d-md-inline-block ml-1">{{ algo.displayName }}</span>
+                </ng-template>
+
+                <mat-icon class="s-16">keyboard_arrow_down</mat-icon>
+            </button>
+
+                                <mat-menu #userMenu="matMenu" [overlapTrigger]="false" xPosition="before">
+                                    <button mat-menu-item routerLink="usuario-perfil">
+                                    <mat-icon>account_circle</mat-icon>
+                                    <span>Mi perfil</span>
+                                    </button>
+                                    <!--
+
+                                    <button mat-menu-item class="">
+                                    <mat-icon>mail</mat-icon>
+                                    <span>Inbox</span>
+                                    </button>
+                                    -->
+
+                                    <button mat-menu-item (click)="autorizacion.cerrarSesion()">
+                                        <mat-icon>exit_to_app</mat-icon>
+                                        <span>Cerrar sesión</span>
+                                    </button>
+                                </mat-menu>
+
+            <ng-template #login>
+                <button routerLink="/sesion-iniciar" mat-button class="text-light">
+                    <mat-icon>account_circle </mat-icon> <span class="d-none d-md-inline-block ml-1"> Iniciar sesión</span>
+                </button>
+            </ng-template>
+        </ng-template>
+
+
+
+
+    </mat-toolbar-row>
+</mat-toolbar>

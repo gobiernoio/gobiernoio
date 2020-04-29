@@ -1,0 +1,17 @@
+<div class="alert alert-secondary" role="alert">
+            
+    <div>
+        <button mat-raised-button type="button" color="accent" (click)="marcarUbicacion()" class="d-block w-100">
+            <mat-icon matSuffix>location_on</mat-icon>
+            Indicar ubicación
+        </button>
+    </div>
+
+    <div class="alert alert-success mt-3" *ngIf="direccion">
+        <!-- Ubicación: {{ coordenadas.lat }}, {{ coordenadas.lng }} -->
+        <small>
+            Dirección: {{ direccion }}
+        </small>
+    </div>
+
+</div>

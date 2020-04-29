@@ -1,0 +1,204 @@
+<div class="container-fluid caja-interior" [ngStyle]="{ 'background-color': color, 'background-image': 'url(https://firebasestorage.googleapis.com/v0/b/ecatepecapp.appspot.com/o/webapp%2Ffondos%2Ffondo_generico.png?alt=media&token=5db26fee-d218-4eba-8174-ffb83d40ab71)' }" style="min-height: 100%;">
+	<div class="container animated fadeInUp">
+		<div class="row">
+			<div class="col-12 p-1 p-md-3">
+					<div class="card mt-1 mt-md-3 shadow">
+						<div class="card-header">
+							<div class="titulo-responsivo text-center">
+								{{ tramite.titulo }}</div>
+						</div>
+						<div class="card-body p-3 p-md-5 p-md-3">
+							<p [innerHTML]="tramite.presentacion"></p>
+						</div>
+					</div>
+			</div>
+		</div>
+
+		<div class="row pb-md-5">
+			<div class="col-12 col-md-4 p-1 p-md-3">
+				<div class="card mb-3 shadow">
+					<div class="card-body">
+						<h5>¿Qué es?</h5>
+						<p [innerHTML]="tramite.que"></p>
+
+						<hr>
+
+						<h5>Quién lo necesita?</h5>
+						<p [innerHTML]="tramite.quien"></p>
+					</div>
+				</div>
+
+				<div class="card shadow">
+					<div class="card-body">
+						<h5>Requisitos y formato</h5>
+						<p [innerHTML]="tramite.requisitos"></p>
+
+						<div *ngIf="tramite.formatos">
+							<div *ngFor="let item of tramite.formatos">
+								<a mat-raised-button color="accent" href="{{item.archivo}}" class="d-block mb-3 w-100" target="_blank">
+									<mat-icon matSuffix>attach_file</mat-icon>
+									Descargar {{item.nombre}}
+								</a>
+							</div>
+						</div>
+
+					</div>
+				</div>
+
+
+				<div *ngIf="tramite.fundamentos">
+						<div class="card shadow">
+								<div class="card-body">
+									<h5>Fundamentos</h5>
+									<p [innerHTML]="tramite.fundamentos"></p>
+								</div>
+						</div>
+				</div>
+			</div>
+
+
+			<div class="col-12 col-md-8 p-1 p-md-3">
+				<div class="card shadow">
+					<div class="card-body">
+						<h5>Iniciar trámite en línea</h5>
+
+
+
+						<!-- REACTIVE FORM EXAMPLE -->
+						<form name="form" [formGroup]="formGroupPeticiones" #formDirectivePeticiones="ngForm">
+
+							<div class="row">
+							<div class="col-12">
+								<mat-form-field appearance="outline" class="d-block w-100">
+									<mat-label>Nombre completo</mat-label>
+									<input matInput formControlName="nombreCompleto" required>
+									<mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+									<mat-error>El nombre es requerido</mat-error>
+								</mat-form-field>
+							</div>
+							<div class="col-12">
+								<mat-form-field appearance="outline" class="d-block w-100">
+									<mat-label>Correo electrónico</mat-label>
+									<input matInput formControlName="correo" required>
+									<mat-icon matSuffix class="secondary-text">email</mat-icon>
+									<mat-error>El correo es un campo requerido</mat-error>
+								</mat-form-field>
+							</div>
+							</div>
+
+							<div class="row">
+								<div class="col-12 col-md-6">
+									<mat-form-field appearance="outline" class="d-block w-100">
+										<mat-label>Calle y número</mat-label>
+										<input matInput formControlName="calleNumero" required>
+										<mat-icon matSuffix class="secondary-text">location_city</mat-icon>
+										<mat-error>Calle y número es un dato requerido</mat-error>
+									</mat-form-field>
+								</div>
+								<div class="col-12 col-md-6">
+									<mat-form-field appearance="outline" class="d-block w-100">
+										<mat-label>Colonia</mat-label>
+										<input matInput formControlName="colonia" required>
+										<mat-icon matSuffix class="secondary-text">outlined_flag</mat-icon>
+										<mat-error>La colonia es requerida</mat-error>
+									</mat-form-field>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-12 col-md-6">
+									<mat-form-field appearance="outline" class="d-block w-100">
+										<mat-label>Código postal</mat-label>
+										<input matInput #postalCode value="" formControlName="codigoPostal" maxlength="5" required>
+										<mat-icon matSuffix class="secondary-text">markunread_mailbox</mat-icon>
+										<mat-hint align="start">
+										{{postalCode.value.length}} / 5
+										</mat-hint>
+										<mat-error>El C. P. es requerido</mat-error>
+									</mat-form-field>
+								</div>
+								<div class="col-12 col-md-6">
+									<mat-form-field appearance="outline" class="d-block w-100">
+										<mat-label>Teléfono</mat-label>
+										<input matInput formControlName="telefono" required>
+										<mat-icon matSuffix class="secondary-text">local_phone</mat-icon>
+										<mat-error>El teléfono es un campo requerido</mat-error>
+									</mat-form-field>
+								</div>
+							</div>
+
+
+
+							<div class="row mb-3">
+								<div class="col-12">
+									<div class="alert alert-secondary" role="alert">
+										<div class="p-1" *ngFor="let archivo of archivosLista">
+											<div *ngIf="archivo">
+												<mat-icon *ngIf='archivo.tipo=="image/jpeg" || archivo.tipo=="image/gif" || archivo.tipo=="image/png"'>insert_photo</mat-icon>
+												<!-- <span>arrow_right</span>
+											</mat-icon> -->
+											<a href="{{ archivo.url }}" target="_blank"><b>{{ archivo.name }}</b> ({{ archivo.size }})Kb </a>
+											</div>
+
+											<!-- <mat-progress-bar mode="determinate" color="accent" value="{{ archivo.progreso }}" *ngIf="archivo.barraProgreso" class="p-1 d-block w-100"></mat-progress-bar> -->
+										</div>
+
+										<mat-progress-bar *ngIf="subidaEnCurso?.active" mode="determinate" color="accent" value="{{ subidaEnCurso?.progress }}" class="p-1 d-block w-100"></mat-progress-bar>
+									</div>
+								</div>
+							</div>
+
+
+							<div class="row">
+								<div class="col-12 col-md-6 mb-2">
+									
+									<input hidden type="file" (change)="adjuntarArchivo($event)" #archivoInput/>
+									<button mat-raised-button type="button" color="accent" (click)="archivoInput.click()" class="d-block w-100">
+										<mat-icon matSuffix>attach_file</mat-icon>
+										Cargar nuevo archivo
+									</button>
+								</div>
+
+								<div class="col-12 col-md-6 mb-2" *ngIf="usarLibreria">
+									<button mat-raised-button type="button" color="accent" (click)="llamarAdjuntar()" class="d-block w-100">
+										<mat-icon matSuffix>folder_shared</mat-icon>
+										Adjuntar de mi biblioteca
+									</button>
+								</div>
+							</div>
+
+
+							<div class="row">
+							<div class="col-12">
+								<mat-form-field appearance="outline" class="d-block w-100">
+									<mat-label>Mensaje</mat-label>
+									<textarea matInput formControlName="mensaje" required>
+									<!-- 1600 Amphitheatre Pkwy -->
+									</textarea>
+									<mat-error>El mensaje es un campo requerido</mat-error>
+								</mat-form-field>
+							</div>
+							</div>
+
+
+							<div class="row">
+								<div class="col-6 offset-6 col-md-4 offset-md-8">
+										<!-- <button (click)="mostrarData()">
+											Mostrar Data
+										</button> -->
+
+										<button mat-raised-button color="accent" [disabled]="formGroupPeticiones.invalid"  (click)="procesarFormulario(formulario)" class="d-block w-100">
+										<!-- <button mat-raised-button color="accent" (click)="enviarFormulario(formulario)" class="d-block w-100"> -->
+											<mat-icon matSuffix>send</mat-icon>
+											Envíar
+										</button>
+								</div>
+							</div>
+						</form>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
