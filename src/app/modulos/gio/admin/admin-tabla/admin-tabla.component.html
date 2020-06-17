@@ -1,0 +1,49 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12 pt-5">
+
+
+            <mat-form-field>
+                <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtrar">
+            </mat-form-field>
+
+            <div class="example-container mat-elevation-z8">
+                    <table mat-table [dataSource]="dataSource" matSort style="width: 100%;">
+                        
+                        <div *ngFor="let item of tableStructure">
+                            <ng-container *ngIf="item.type == 'item'" matColumnDef="{{ item.key }}">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> {{ item.text }} </th>
+                                <td mat-cell *matCellDef="let element"> {{ element[ item.key ] }} </td>
+                            </ng-container>
+
+                            <ng-container  *ngIf="item.type == 'delete'" matColumnDef="borrar">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Borrar </th>
+                                <td mat-cell *matCellDef="let element" class="botonera">
+                                    <button mat-icon-button color="primary" (click)="borrarElemento(element.id)">
+                                        <mat-icon>delete</mat-icon>
+                                    </button>
+                                </td>
+                            </ng-container>
+
+                            <ng-container  *ngIf="item.type == 'edit'" matColumnDef="editar">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Editar </th>
+                                <td mat-cell *matCellDef="let element" class="botonera">
+                                    <button mat-icon-button color="primary" routerLink="/empresas/editar/{{element.id}}">
+                                        <mat-icon>edit</mat-icon>
+                                    </button>
+                                </td>
+                            </ng-container>
+                        </div>
+
+                        
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns;"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+                    
+                    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+            </div>
+
+
+        </div>
+    </div>
+</div>

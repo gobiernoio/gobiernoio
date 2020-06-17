@@ -1,8 +1,8 @@
 // 1602 9361
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, Inject } from '@angular/core';
 import { Router, ActivatedRoute } from "@angular/router";
 import { FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms';
-import { MatDialog, MatDialogConfig } from '@angular/material';
+import { MatDialog, MatDialogConfig, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 // Components
 import { DebesIniciarSesionComponent } from "./../../../../elementos/debes-iniciar-sesion/debes-iniciar-sesion.component";
 
@@ -44,6 +44,7 @@ export class FormularioSesionComponent {
         public paginaActual: PaginaActualService,
         private _toolbarService:ToolbarService, 
         private parametros: ActivatedRoute,
+        private _matDialog: MatDialog, 
     ) {
         this.construirPagina()
         
@@ -244,7 +245,7 @@ export class FormularioSesionComponent {
     // =============================================================
     enviarDatabase(updates) {
         this.datos.datos.database.ref().update(updates).then((() => {
-            // this.despuesDeEnviar()
+            this.despuesDeEnviar()
         }))
     }
 
@@ -254,11 +255,49 @@ export class FormularioSesionComponent {
     // =============================================================
     despuesDeEnviar() {
         this.formGroup.reset()
-        // this.abrirDialogo()
+        this.abrirDialogo()
+    }
+
+
+    // =============================================================
+    //      ABRIR DIALOGO
+    // =============================================================
+    abrirDialogo(): void {
+        const dialogRef = this._matDialog.open(DialogoAlerta, {
+            width: '250px'
+            // data: { name: this.name, animal: this.animal }
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            console.log('The dialog was closed');
+            this.router.navigate(['/'])
+        });
     }
 }
 
 
+@Component({
+    selector: 'dialogo-alerta',
+    templateUrl: 'dialogo-alerta.html'
+})
+export class DialogoAlerta {
+
+    constructor(
+        public dialogRef: MatDialogRef<DialogoAlerta>,
+        @Inject(MAT_DIALOG_DATA) public data
+    ) { 
+        this.data = {
+            titulo: "Formulario enviado", 
+            mensaje: "Su formulario se ha envíado con éxito.", 
+            resultado: true
+        }
+    }
+
+    onNoClick(): void {
+        this.dialogRef.close();
+    }
+
+}
 
 
 

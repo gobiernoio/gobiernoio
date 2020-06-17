@@ -28,7 +28,7 @@ export class AdminTramitesRevisarComponent implements OnInit {
     this.route.paramMap.subscribe(data=>{
       let dependencia = data['params']['dependencia']
 
-      this._dS.datos.database.ref(`dependencias/${dependencia}/tramites`).once('value', data=>{
+      this._dS.datos.database.ref(`admin/formularios/dependencias/${dependencia}/tramites`).once('value', data=>{
         console.log(data.val())
         this.extraviadosDatos = data.val()
       })

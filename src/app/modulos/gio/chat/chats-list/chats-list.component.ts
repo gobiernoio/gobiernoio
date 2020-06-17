@@ -33,6 +33,9 @@ export class ChatsListComponent {
 		this._toolbarService.dataToolbar.emit({ruta:'chats-list'})
 		
 		this.parametros.params.subscribe(parametros=>{
+
+			console.log("Que mandas?", parametros)
+
 			this.datos.datos.database.ref('chats/' + parametros.lista + '/misMensajes').orderByChild('mensaje/id').on('child_added', snapshot => {
 
 				console.log(snapshot.val())

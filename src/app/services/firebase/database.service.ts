@@ -20,7 +20,7 @@ export class DatabaseService {
 	}
   
 	public traerDirecciones(){
-	  let referencia = this.datos.database.ref('panel/direcciones')
+	  let referencia = this.datos.database.ref('admin/data/direcciones')
 	  let lista = this.datos.list(referencia)
   
 	  return lista.valueChanges()

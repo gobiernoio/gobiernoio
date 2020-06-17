@@ -67,7 +67,7 @@ export class FormularioAnonimoComponent {
     armarUpdates(id, values) {
         
         return {
-            [`denuncia-anonima/${id}`]: values
+            [`admin/formularios/denuncia_anonima/${id}`]: values
         }
 
     }
@@ -134,7 +134,7 @@ export class DialogoAlerta {
     ) { 
         this.data = {
             titulo: "Formulario enviado", 
-            mensaje: "Su petición se ha envíado con éxito.", 
+            mensaje: "Su denuncia anónima se ha envíado con éxito.", 
             resultado: true
         }
     }

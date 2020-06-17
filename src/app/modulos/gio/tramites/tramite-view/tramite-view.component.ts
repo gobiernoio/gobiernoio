@@ -147,14 +147,14 @@ export class TramiteViewComponent implements OnInit {
 
     actualizarUsuarioFirebase(uid, datos) {
         let ref = 'usuarios/' + uid + '/perfil'
-        this.datos.datos.database.ref(ref).set(datos)
+        // this.datos.datos.database.ref(ref).set(datos)
     }
 
     enviarTramiteFirebase(uid, id){
         this.formGroupPeticiones.value.archivosArray = this.archivosLista
         let updates = {}
         updates['usuarios/' + uid + '/tramites/' + id] = this.formGroupPeticiones.value
-        updates['dependencias/' + this.destinatario + '/tramites/' + id] = this.formGroupPeticiones.value
+        updates['admin/tramites/' + this.destinatario + '/' + id] = this.formGroupPeticiones.value
 
         console.log("Updates", updates)
 

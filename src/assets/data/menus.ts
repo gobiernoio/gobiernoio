@@ -20,11 +20,11 @@ export const menus = {
         //     icon: "chat_bubble",
         //     texto: "Mis Chats",
         // },
-        {
-            enlace: "/peticiones-landing",
-            icon: "notifications",
-            texto: "Reporte vecinal"
-        }
+        // {
+        //     enlace: "/peticiones-landing",
+        //     icon: "notifications",
+        //     texto: "Reporte vecinal"
+        // }
     ],
     menuAdministrador: [
         {

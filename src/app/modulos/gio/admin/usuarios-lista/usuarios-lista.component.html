@@ -1,0 +1,35 @@
+<div class="container" style="padding-top: 56px;">
+
+    <div class="row">
+        <div class="col-12 p-5">
+            <p>usuarios-lista works!</p>
+
+            <div class="row">
+                <div class="col-12">
+                    <button class="btn btn-default">
+                        Cargar
+                    </button>
+                </div>
+            </div>
+                
+            <div *ngFor="let item of chats | keyvalue">
+                
+                <div *ngIf="!item.value.perfil" class="alert alert-success mb-5">
+                    <h3>{{ item.key }}</h3>
+                    <pre>
+                        {{ item.value | json }}
+                    </pre>
+                    
+                    <button class="btn btn-block btn-default btn-success" (click)="eliminar(item.key)">
+                        Eliminar
+                    </button>
+                </div>
+
+            </div>
+
+
+        
+        </div>
+    </div>
+
+</div>

@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators, FormControl } from '@angular/forms';
 import { Router } from "@angular/router";
 // firebase
 import { AuthService } from "./../../../../services/firebase/auth.service";
@@ -17,7 +17,7 @@ import { GioUsuario } from "./../../../../modelos/usuario";
     styleUrls: ['./usuario-registrar.component.scss'],
     encapsulation: ViewEncapsulation.None,
 })
-export class UsuarioRegistrarComponent implements OnInit {
+export class UsuarioRegistrarComponent {
 
     registerForm: FormGroup;
     redireccion: string
@@ -36,29 +36,78 @@ export class UsuarioRegistrarComponent implements OnInit {
         private router: Router,
         public paginaActual: PaginaActualService
     ) {
-        if (this.paginaActual.getPaginaActual()) {
-            this.redireccion = this.paginaActual.getPaginaActual()
-        } else {
-            this.redireccion = "/"
+        this.redireccionarInicio()
+        this.construirFormulario()
+    }
+
+
+
+    // =============================================================
+    //      PROCESAR FORMULARIO
+    // =============================================================
+    procesarFormulario() {
+        console.log("Procesar formulario", this.registerForm.value)
+        this.crearUsuario()
+    }
+    
+
+
+    // =============================================================
+    //      CREAR USUARIO
+    // =============================================================
+    crearUsuario(){
+        this.autorizacion.autorizacion.auth.createUserWithEmailAndPassword(this.registerForm.value.email, this.registerForm.value.password).then(data => {
+
+            let gioUsuario = this.crearElementoUsuario()
+            this.actualizarDisplayName()            
+            this.guardarPerfilUsuarioEnFirebase(data.user.uid, gioUsuario)
+
+        }).catch(error => {
+            this.mostrarErrorRegistro(error)
+        })
+    }
+
+    guardarPerfilUsuarioEnFirebase(uid, gioUsuario){
+        gioUsuario.uid = uid
+        let ruta = `usuarios/${uid}/perfil`
+
+        this.datos.datos.database.ref(ruta).set(gioUsuario).then(()=>{
+            console.log("GioUsuario", gioUsuario)
+        })
+    }
+
+
+
+    // =============================================================
+    //      ARMAR OBJETO USUARIO
+    // =============================================================
+    crearElementoUsuario(){
+        let displayName = this.registerForm.value.displayName
+        let email = this.registerForm.value.email
+        let admin = false
+
+        return new GioUsuario(displayName, email)
+    }
+
+
+
+    // =============================================================
+    //      ACTUALIZAR DISPLAY NAME EN USUARIO
+    // =============================================================
+    actualizarDisplayName(){
+        console.log("Actualizando el displayName ...")
+
+        let currentUser = this.autorizacion.autorizacion.auth.currentUser
+        let nombre = this.registerForm.value.displayName
+
+        let profile = {
+            displayName: this.registerForm.value.displayName
         }
+
+        currentUser.updateProfile(profile).then(()=>{
+            console.log("Se actualizó el displayName a: " + profile.displayName)
+        })
     }
-
-
-    ngOnInit(): void {
-        this.registerForm = this._formBuilder.group({
-            name: ['', Validators.required],
-            email: ['', [Validators.required, Validators.email]],
-            password: ['', Validators.required],
-            passwordConfirm: ['', [Validators.required, confirmPasswordValidator]],
-            leidoAceptado: ['', Validators.required]
-        });
-
-        this.registerForm.get('password').valueChanges.subscribe(() => {
-            this.registerForm.get('passwordConfirm').updateValueAndValidity();
-        });
-    }
-
-
 
     enviarFormulario() {
         let gioUsuario = this.crearElementoUsuario()
@@ -75,31 +124,13 @@ export class UsuarioRegistrarComponent implements OnInit {
         })
     }
 
-    guardarPerfilUsuarioEnFirebase(uid, gioUsuario){
-        gioUsuario.uid = uid
-        gioUsuario.isAdmin = false
-        let ruta = `usuarios/${uid}/perfil`
-        let ref = this.datos.datos.database.ref(ruta)
-        ref.set(gioUsuario).then(data=>{
-            this.redireccionar()
-        })
-    }
-
-
-    redireccionar(){
-        this.router.navigate([this.redireccion])
-    }
-
-    crearElementoUsuario(){
-        let nombre = this.registerForm.value.name
-        let email = this.registerForm.value.email
-        let admin = false
-
-        return new GioUsuario(nombre, email, admin)
-    }
+   
 
 
 
+    // =============================================================
+    //      MOSTRAR ERROR DE REGISTRO
+    // =============================================================
     mostrarErrorRegistro(error){
         let tipoDeError = error.code
         let configuracionDialogo: MatDialogConfig = {};
@@ -122,7 +153,46 @@ export class UsuarioRegistrarComponent implements OnInit {
         this.dialog.open(ComponenteAlertasComponent, configuracionDialogo);
     }
 
+    
 
+    // =============================================================
+    //      REDIRECCIONAR DE INICIO
+    // =============================================================
+    redireccionarInicio(){
+        if (this.paginaActual.getPaginaActual()) {
+            this.redireccion = this.paginaActual.getPaginaActual()
+        } else {
+            this.redireccion = "/"
+        }
+    }
+
+
+
+    // =============================================================
+    //      REDIRECCIONAR
+    // =============================================================
+    redireccionar(){
+        this.router.navigate([this.redireccion])
+    }
+
+
+
+    // =============================================================
+    //      ARMAR FORMULARIO
+    // =============================================================
+    construirFormulario(){
+        this.registerForm = this._formBuilder.group({
+            displayName: new FormControl('', Validators.required),
+            email: new FormControl('', [Validators.required, Validators.email]),
+            password: new FormControl('', Validators.required),
+            passwordConfirm: ['', [Validators.required, confirmPasswordValidator]],
+            leidoAceptado: new FormControl('', Validators.required)
+        });
+
+        this.registerForm.get('password').valueChanges.subscribe(() => {
+            this.registerForm.get('passwordConfirm').updateValueAndValidity()
+        });
+    }
 }
 
 

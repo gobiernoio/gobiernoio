@@ -1,12 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from "@angular/common/http";
 // Mapa
 import { AgmCoreModule } from '@agm/core';
 import {  MAT_DATE_LOCALE, MatCardModule, MatDatepickerModule, MatNativeDateModule, MatDialogModule, MatCheckboxModule,  MatButtonModule, MatFormFieldModule, MatIconModule, MatInputModule, MatSelectModule, MatStepperModule, MatProgressBarModule } from '@angular/material';
 import { CommonModule } from '@angular/common';
-import { FormularioSesionComponent } from './formulario-sesion.component';
+import { FormularioSesionComponent, DialogoAlerta } from './formulario-sesion.component';
 import { MapaModule } from "../../../../elementos/componente-ubicacion/mapa.module";
 // import { DebesIniciarSesionComponent } from "./../../../../elementos/debes-iniciar-sesion/debes-iniciar-sesion.component";
 import { DebesIniciarSesionModule } from "../../../../elementos/debes-iniciar-sesion/debes-iniciar-sesion.module";
@@ -30,9 +29,6 @@ import { FirebaseUploadService } from "../../../../services/subida/firebase-uplo
 import { UbicacionModule } from "../../../herramientas/ubicacion/ubicacion.module";
 import { CargaModule } from "../../../herramientas/carga/carga.module";
 
-// Services
-import { GeocoderService } from "../../../../services/http/geocoder.service";
-
 const routes: Routes = [
   {
       path: '**',
@@ -42,7 +38,8 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [FormularioSesionComponent],
+  declarations: [FormularioSesionComponent, DialogoAlerta],
+  entryComponents: [DialogoAlerta], 
   imports: [
     CommonModule,
   ArchivosModule,
@@ -70,7 +67,6 @@ const routes: Routes = [
     // Formularios
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule, 
 
     // Mapa
     // AgmCoreModule.forRoot({
@@ -84,7 +80,7 @@ const routes: Routes = [
   providers: [
     { provide: StorageBucket, useValue: 'ecatepecapp.appspot.com' },
     { provide: MAT_DATE_LOCALE, useValue: 'es-ES' },
-    funcionesFormularios, FirebaseUploadService, GeocoderService
+    funcionesFormularios, FirebaseUploadService
   ],
 })
 export class FormularioSesionModule { }

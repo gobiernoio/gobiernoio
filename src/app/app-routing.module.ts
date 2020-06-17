@@ -32,11 +32,7 @@ const routes: Routes = [
 		path: 'tramite-view/:id/:from',
 		loadChildren: () => import('./modulos/gio/tramites/tramite-view/tramite-view.module').then(m => m.TramiteViewModule)
 	},
-	// // ============ Chats ===============
-	// {
-	// 	path        : 'chat',
-	// 	loadChildren: 'src/app/modules/chat/chat.module#ChatModule'
-	// },
+	// ============ Chats ===============
 	{
 		path: 'chats-list/:lista',
 		loadChildren: () => import('./modulos/gio/chat/chats-list/chats-list.module').then(m => m.ChatsListModule)
@@ -45,10 +41,6 @@ const routes: Routes = [
 		path: 'chats-landing/:lista',
 		loadChildren: () => import('./modulos/gio/chat/chats-landing/chats-landing.module').then(m => m.ChatsLandingModule)
 	},
-	// {
-	// 	path: 'chat-view/:id/:nombre/:ruta',
-	// 	loadChildren: () => import('./modulos/gio/chat/chat-view/chat-view.module').then(m => m.ChatViewModule)
-	// },
 	{
 		path: 'chat-view',
 		loadChildren: () => import('./modulos/gio/chat/chat-view/chat-view.module').then(m => m.ChatViewModule)
@@ -66,30 +58,22 @@ const routes: Routes = [
 		path: 'formulario-sesion/:formulario',
 		loadChildren: () => import('./modulos/gio/formularios/formulario-sesion/formulario-sesion.module').then(m => m.FormularioSesionModule)
 	},
-	// {
-	//   path  : 'mapa-seleccionar',
-	//   loadChildren: 'src/app/modules/mapa-seleccionar/mapa-seleccionar.module#MapaSeleccionarModule'
-	// },
 	{
 		path: 'sitios',
 		loadChildren: () => import('./modulos/gio/sitios/sitios.module').then(m => m.SitiosModule)
 	},
-	// {
-	//   path        : 'direcciones',
-	//   loadChildren: 'src/app/modules/direcciones/direcciones.module#DireccionesModule'
-	// }, 
 	// ============ Administrador ===============
 	{
-		path: 'extraviados-revisar', 
-		loadChildren: () => import('./modulos/gio/admin/admin-extraviados-revisar/admin-extraviados-revisar.module').then(m => m.AdminExtraviadosRevisarModule)
+		path: 'admin-tabla/:tabla', 
+		loadChildren: () => import('./modulos/gio/admin/admin-tabla/admin-tabla.module').then(m => m.AdminTablaModule)
 	}, 
 	{
-		path: 'grua-revisar', 
-		loadChildren: () => import('./modulos/gio/admin/admin-grua-revisar/admin-grua-revisar.module').then(m => m.AdminGruaRevisarModule)
+		path: 'admin-usuarios-lista', 
+		loadChildren: () => import('./modulos/gio/admin/usuarios-lista/usuarios-lista.module').then(m=>m.UsuariosListaModule)
 	}, 
 	{
-		path: 'ambiental-revisar', 
-		loadChildren: () => import('./modulos/gio/admin/admin-ambiental-revisar/admin-ambiental-revisar.module').then(m => m.AdminAmbientalRevisarModule)
+		path: 'admin-menus', 
+		loadChildren: () => import('./modulos/gio/admin/menus/menus.module').then(m => m.MenusModule)
 	}, 
 	{
 		path: 'tramites-revisar/:dependencia', 
@@ -98,11 +82,7 @@ const routes: Routes = [
 	{
 		path: 'peticiones-revisar/:dependencia', 
 		loadChildren: () => import('./modulos/gio/admin/admin-peticiones-revisar/admin-peticiones-revisar.module').then(m => m.AdminPeticionesRevisarModule)
-	}, 
-	// {
-	//   path        : 'admin-usario-modificar',
-	//   loadChildren: 'src/app/modules/admin/usuario/usuario-modificar/usuario-modificar.module#UsuarioModificarModule'
-	// }
+	}
 ]
 
 @NgModule({

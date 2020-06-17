@@ -78,7 +78,7 @@ export class ChatAdminComponent implements OnInit {
         // this.formGroupDirecciones.value.id = id;
 
 
-        // this.datos.datos.database.ref('panel/direcciones/' + id).set(this.formGroupDirecciones.value).then(data => {
+        // this.datos.datos.database.ref('admin/data/direcciones/' + id).set(this.formGroupDirecciones.value).then(data => {
 
         //     this.formGroupDirecciones = this._formBuilder.group({
         //         direccionId: ['', Validators.required],
@@ -91,7 +91,7 @@ export class ChatAdminComponent implements OnInit {
 
 
     borrarRegistro(id) {
-        let ruta = "panel/direcciones/" + id;
+        let ruta = "admin/data/direcciones/" + id;
         this.datos.datos.database.ref(ruta).remove().then(result => {
             console.info(result)
         }).catch(error => {
@@ -101,7 +101,7 @@ export class ChatAdminComponent implements OnInit {
 
 
     editarRegistro(id) {
-        let ruta = "panel/direcciones/" + id;
+        let ruta = "admin/data/direcciones/" + id;
         let ref = this.datos.datos.database.ref(ruta)
         // let lista = this.datos.datos.list(ref)
 

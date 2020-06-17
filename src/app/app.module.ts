@@ -14,6 +14,8 @@ import { AngularFireAuthModule } from "@angular/fire/auth";
 import { AngularFireDatabaseModule } from "@angular/fire/database";
 import { environment } from "./../environments/environment";
 
+// Http
+import { HttpClientModule } from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -32,7 +34,7 @@ import { environment } from "./../environments/environment";
     AngularFireAuthModule,
     AngularFireDatabaseModule,
   ],
-  providers: [],
+  providers: [HttpClientModule],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -35,7 +35,7 @@ export class ChatsLandingComponent {
 				console.log("Los parametros son", this.lista)
 
 				
-				this.datos.datos.database.ref('data/chats').orderByChild('orden').on('value', snapshot=>{
+				this.datos.datos.database.ref('admin/data/chats').orderByChild('orden').on('value', snapshot=>{
 					this.chats = snapshot.val()
 					console.log(this.chats)
 				})

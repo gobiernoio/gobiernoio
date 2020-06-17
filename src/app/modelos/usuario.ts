@@ -1,5 +1,6 @@
 export class GioUsuario {
     uid:string = ""
+    displayName:string = ""
     nombre:string = ""
     apellidoPaterno:string = ""
     apellidoMaterno:string = ""
@@ -9,22 +10,28 @@ export class GioUsuario {
     email:string = ""
     emailVerificado:boolean = false
     usuarioAnonimo:boolean = false
-    admin:any = ""
+    // admin:any = ""
+    tipoDeUsuario = ""
     direccion1:string = ""
     direccion2:string = ""
     cp:number = 12345
 
-    constructor(nombre, email, administrador){
-        this.nombre = nombre
+    constructor(displayName, email, administrador?){
+        this.displayName = displayName
         this.email = email
-    
-
-        this.admin = {
-            esAdministrador: administrador, 
-            tipo: "usuario", 
-            chats: [{}], 
-            tramites: [{}], 
-            peticiones:[{}]
+        
+        if(administrador) {
+            this.tipoDeUsuario = administrador
+        } else {
+            this.tipoDeUsuario = "ciudadano"
         }
+
+        // this.admin = {
+        //     esAdministrador: administrador, 
+        //     tipo: "usuario", 
+        //     chats: [{}], 
+        //     tramites: [{}], 
+        //     peticiones:[{}]
+        // }
     }
 }

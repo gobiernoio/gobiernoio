@@ -1,7 +1,7 @@
 export const formularios = {
     reporte_vecinal: {
         titulo: "Reporte vecinal", 
-        databaseUrlAdmin: "admin/reporte_vecinal", 
+        databaseUrlAdmin: "admin/formularios/reporte_vecinal", 
         databaseUrlUser: "reporte_vecinal", 
         showJson: false, 
         route: 'formulario-sesion', 
@@ -96,7 +96,7 @@ export const formularios = {
     }, 
     celula_de_busqueda: {
         titulo: "Celula de búsqueda", 
-        databaseUrlAdmin: "admin/celula_de_busqueda", 
+        databaseUrlAdmin: "admin/formularios/celula_de_busqueda", 
         databaseUrlUser: "celula_de_busqueda", 
         encabezadoImagen: "https://firebasestorage.googleapis.com/v0/b/ecatepecapp.appspot.com/o/webapp%2Flogos%2Flogos_celula-09.png?alt=media&token=eae6f6f6-b7d2-43fe-894c-eca64704d64b", 
         showJson: false, 
@@ -225,7 +225,7 @@ export const formularios = {
     },
     servicio_de_grua: {
         titulo: "Servicio de grua gratuito", 
-        databaseUrlAdmin: "admin/servicio_de_grua", 
+        databaseUrlAdmin: "admin/formularios/servicio_de_grua", 
         databaseUrlUser: "servicio_de_grua", 
         showJson: false, 
         route: 'formulario-sesion', 
@@ -299,7 +299,7 @@ export const formularios = {
     }, 
     denuncia_ambiental: {
         titulo: "Denuncia ambiental", 
-        databaseUrlAdmin: "admin/denuncia_ambiental", 
+        databaseUrlAdmin: "admin/formularios/denuncia_ambiental", 
         databaseUrlUser: "denuncia_ambiental", 
         showJson: false, 
         route: 'formulario-sesion', 
